@@ -1,0 +1,1113 @@
+
+<style>
+  :root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --color-text-primary: #1F2937;
+    --color-text-secondary: #4B5563;
+    --color-background-primary: #FFFFFF;
+    --color-background-secondary: #F3F4F6;
+    --color-border-secondary: #D1D5DB;
+    --color-border-tertiary: #E5E7EB;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); background-color: var(--color-background-primary); line-height: 1.6; }
+
+  /* Centered doc container */
+  .doc { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* HERO */
+  .hero { text-align: center; padding: 3rem 1.5rem 2.5rem; border-radius: var(--border-radius-lg); margin-bottom: 2.5rem; background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%); border: 1px solid var(--color-border-tertiary); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .hero-badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); color: white; padding: 6px 16px; border-radius: 99px; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); }
+  .hero h1 { font-size: clamp(28px, 5vw, 36px); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #111827; }
+  .hero p { font-size: 16px; color: var(--color-text-secondary); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+
+  /* TOC */
+  .toc { background: #F8FAFC; border-radius: var(--border-radius-lg); padding: 1.75rem; margin-bottom: 3rem; border: 1px solid #E2E8F0; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .toc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-secondary); font-weight: 700; margin-bottom: 1.25rem; }
+  .toc-list { display: flex; flex-direction: column; gap: 10px; }
+  .toc-item { display: flex; align-items: center; gap: 14px; font-size: 14px; font-weight: 500; cursor: pointer; color: #334155; transition: all 0.2s ease; padding: 8px 12px; border-radius: 8px; }
+  .toc-item:hover { color: #0F172A; background: #F1F5F9; transform: translateX(4px); }
+  .toc-num { width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; border: 1px solid #CBD5E1; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #64748B; flex-shrink: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+
+  /* SECTION */
+  .section { margin-bottom: 4rem; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 2px solid #F1F5F9; }
+  .section-num { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .n1 { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+  .n2 { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+  .n3 { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .n4 { background: #EDE9FE; color: #5B21B6; border: 1px solid #DDD6FE; }
+  .section-title { font-size: clamp(22px, 4vw, 28px); font-weight: 700; color: #111827; }
+  .section-subtitle { font-size: 15px; color: var(--color-text-secondary); margin-top: 6px; font-weight: 500; }
+
+  /* CONTENT BLOCKS */
+  .lead { font-size: 16px; color: #374151; line-height: 1.8; margin-bottom: 1.75rem; font-weight: 500; }
+  .prose { font-size: 15px; line-height: 1.75; color: #4B5563; margin-bottom: 1.5rem; }
+
+  /* CONCEPT CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 1.5rem 0 2rem; }
+  .card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: var(--border-radius-lg); padding: 1.5rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .card:hover { transform: translateY(-4px); border-color: #CBD5E1; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025); }
+  .card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.75rem; }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; color: #111827; }
+  .card-desc { font-size: 14px; color: #4B5563; line-height: 1.7; }
+  
+  .c-blue-label { color: #2563EB; }
+  .c-green-label { color: #16A34A; }
+  .c-amber-label { color: #D97706; }
+  .c-purple-label { color: #7C3AED; }
+  .c-coral-label { color: #DC2626; }
+  .c-teal-label { color: #0D9488; }
+
+  /* FORMULA BOX */
+  .formula-box { background: linear-gradient(135deg, #1E293B, #0F172A); border: 1px solid #334155; border-radius: 12px; padding: 2rem; margin: 2.5rem 0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.1); }
+  .formula-header { font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; color: #94A3B8; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .formula-header::before { content: ''; display: block; width: 8px; height: 8px; background: #38BDF8; border-radius: 50%; box-shadow: 0 0 10px #38BDF8; }
+  .formula { font-family: var(--font-mono); font-size: 15px; color: #F8FAFC; line-height: 2; letter-spacing: 0.5px; background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid #475569; white-space: pre-wrap; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); }
+  .formula-note { font-size: 13px; color: #94A3B8; margin-top: 1.5rem; line-height: 1.7; border-top: 1px dashed #334155; padding-top: 1.25rem; }
+
+  /* DIFF TABLE - IMPROVED BORDER */
+  .diff-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; margin: 2rem 0; overflow: hidden; border-radius: var(--border-radius-lg); border: 1px solid #CBD5E1; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .diff-table th { text-align: left; padding: 14px 16px; background: #F8FAFC; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; border-bottom: 2px solid #CBD5E1; }
+  .diff-table th:not(:last-child) { border-right: 1px solid #E2E8F0; }
+  .diff-table td { padding: 14px 16px; border-bottom: 1px solid #E2E8F0; vertical-align: top; line-height: 1.6; color: #334155; }
+  .diff-table td:not(:last-child) { border-right: 1px solid #E2E8F0; }
+  .diff-table tr:last-child td { border-bottom: none; }
+  .diff-table tr:nth-child(even) td { background: #F8FAFC; }
+  .diff-table tr:hover td { background: #F1F5F9; transition: background 0.15s ease; }
+
+  /* USE CASE TAGS */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .tag { font-size: 12px; padding: 4px 12px; border-radius: 99px; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .tag-blue { background: #DBEAFE; color: #1E40AF; border: 1px solid #BFDBFE; }
+  .tag-green { background: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+  .tag-amber { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .tag-red { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+  .tag-purple { background: #EDE9FE; color: #5B21B6; border: 1px solid #DDD6FE; }
+
+  /* PRO/CON */
+  .pro-con { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 2rem 0; }
+  .pro-box { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: var(--border-radius-lg); padding: 1.5rem; transition: all 0.2s ease; }
+  .pro-box:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.08); }
+  .con-box { background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--border-radius-lg); padding: 1.5rem; transition: all 0.2s ease; }
+  .con-box:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.08); }
+  .pro-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #15803D; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .con-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #B91C1C; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .pro-item, .con-item { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 6px; padding-left: 12px; position: relative; }
+  
+  /* Chart containers */
+  .chart-wrap { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: var(--border-radius-lg); overflow: hidden; margin: 2rem 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .chart-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #475569; padding: 1rem 1.5rem; font-weight: 700; border-bottom: 1px solid #E2E8F0; background: #F8FAFC; }
+  .chart-inner { padding: 1.5rem; position: relative; }
+
+  /* HIGHLIGHT CALLOUT */
+  .callout { border-left: 4px solid; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 1.25rem 1.5rem; margin: 2rem 0; font-size: 14px; line-height: 1.7; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .callout-blue { border-color: #3B82F6; background: #EFF6FF; color: #1E3A8A; }
+  .callout-amber { border-color: #F59E0B; background: #FFFBEB; color: #92400E; }
+  .callout-green { border-color: #10B981; background: #ECFDF5; color: #065F46; }
+  .callout-purple { border-color: #8B5CF6; background: #F5F3FF; color: #5B21B6; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, #E2E8F0, transparent); margin: 3rem 0; }
+
+  /* STEP ROW */
+  .step-row { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; background: #F8FAFC; padding: 12px 16px; border-radius: var(--border-radius-md); border: 1px solid #F1F5F9; }
+  .step-num { width: 30px; height: 30px; border-radius: 50%; background: #3B82F6; color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3); }
+  .step-text { font-size: 14px; color: #334155; line-height: 1.7; margin-top: 4px; }
+
+  /* FOOTER */
+  .footer { text-align: center; font-size: 14px; color: #64748B; padding: 2.5rem 1rem 1rem; border-top: 1px solid #E2E8F0; margin-top: 1rem; line-height: 1.6; }
+  .footer a { color: #3B82F6; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .doc { padding: 1.5rem 1rem 3rem; }
+    .hero { padding: 2rem 1rem 1.5rem; }
+    .section-header { gap: 12px; }
+    .section-num { width: 36px; height: 36px; font-size: 15px; }
+    .card { padding: 1.25rem; }
+    .pro-con { grid-template-columns: 1fr; }
+    .step-row { padding: 10px 12px; }
+    .step-num { width: 26px; height: 26px; font-size: 12px; }
+    .formula-box { padding: 1.25rem; }
+    .chart-wrap { margin: 1.5rem 0; }
+    .chart-inner { padding: 1rem; }
+    .diff-table { font-size: 13px; }
+    .diff-table th, .diff-table td { padding: 10px 12px; }
+  }
+</style>
+
+<div class="doc">
+  <h2 class="sr-only" style="position:absolute;left:-9999px">Statistics Documentation: Sample vs Population, Variance, Standard Deviation, Skewness, and Kurtosis</h2>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Statistics Reference Guide</div>
+    <h1>Understanding Distributions<br>& Descriptive Statistics</h1>
+    <p>A complete visual reference covering sample vs population, variance, standard deviation, skewness, and kurtosis — with formulas, charts, and real-world context.</p>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-list">
+      <div class="toc-item" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">
+        <div class="toc-num">1</div> Sample vs Population — Definitions, Differences & When to Use
+      </div>
+      <div class="toc-item" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">
+        <div class="toc-num">2</div> Variance & Standard Deviation — Formulas, Differences & Use Cases
+      </div>
+      <div class="toc-item" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">
+        <div class="toc-num">3</div> Skewness — Shape Direction, Types & Interpretation
+      </div>
+      <div class="toc-item" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">
+        <div class="toc-num">4</div> Kurtosis — Peak & Tail Shape, Types & Interpretation
+      </div>
+      <div class="toc-item" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">
+        <div class="toc-num">5</div> Outliers — Identification, Types & Handling
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ SECTION 1 ══ -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num n1">1</div>
+      <div>
+        <div class="section-title">Sample vs Population</div>
+        <div class="section-subtitle">The foundation of all statistical inference</div>
+      </div>
+    </div>
+
+    <p class="lead">Before calculating anything in statistics, the first question is always: <em>are you working with everyone, or just some of them?</em> That distinction changes your formulas, your conclusions, and your confidence.</p>
+
+    <div class="card-grid">
+      <div class="card" style="border-top: 2px solid #378ADD;">
+        <div class="card-label c-blue-label">Population (N)</div>
+        <div class="card-title">The entire group</div>
+        <div class="card-desc">Every single member of the group you care about — all students in a country, all products in a factory run, all voters in a nation. Complete and exhaustive.</div>
+      </div>
+      <div class="card" style="border-top: 2px solid #639922;">
+        <div class="card-label c-green-label">Sample (n)</div>
+        <div class="card-title">A selected subset</div>
+        <div class="card-desc">A carefully chosen portion of the population used to make inferences about the whole group. Must be representative to be valid.</div>
+      </div>
+    </div>
+
+    <!-- Visual -->
+    <div class="chart-wrap">
+      <div class="chart-label">Visual — Population vs Sample</div>
+      <div class="chart-inner" style="height:180px;">
+        <canvas id="popChart" role="img" aria-label="Diagram showing population of 100 dots with a sample of 20 highlighted">Conceptual chart: Population = all 100 members, Sample = 20 selected members</canvas>
+      </div>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>Key idea:</strong> A population gives you exact, true values (called <em>parameters</em>). A sample gives you estimates (called <em>statistics</em>) that approximate the population parameters.
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-header">Notation Reference</div>
+      <div class="formula">
+        Population size        →   N  (capital)
+        Sample size            →   n  (lowercase)
+        Population mean        →   μ  (mu)
+        Sample mean            →   x̄  (x-bar)
+        Population std dev     →   σ  (sigma)
+        Sample std dev         →   s  (s)
+      </div>
+      <div class="formula-note">Rule of thumb: Greek letters = population parameters. Latin letters = sample statistics.</div>
+    </div>
+
+    <p class="prose">A well-drawn sample should represent the population accurately. Random sampling is the gold standard — it ensures every member has an equal chance of being selected, removing selection bias.</p>
+
+    <div style="margin: 1.25rem 0;">
+      <div style="font-size:13px; font-weight:500; margin-bottom:.75rem;">How to collect a good sample:</div>
+      <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>Define your population clearly</strong> — who exactly are you trying to understand?</div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>Choose a sampling method</strong> — random, stratified, cluster, or systematic.</div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Determine sample size</strong> — larger samples reduce error but cost more.</div></div>
+      <div class="step-row"><div class="step-num">4</div><div class="step-text"><strong>Check for bias</strong> — make sure no group is systematically excluded.</div></div>
+    </div>
+
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Population</th>
+          <th>Sample</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>What it includes</td><td>All members of the group</td><td>A selected subset</td></tr>
+        <tr><td>Size notation</td><td>N (large N)</td><td>n (small n)</td></tr>
+        <tr><td>Mean notation</td><td>μ (mu)</td><td>x̄ (x-bar)</td></tr>
+        <tr><td>Std deviation</td><td>σ, divide by N</td><td>s, divide by (n − 1)</td></tr>
+        <tr><td>Values called</td><td>Parameters (exact)</td><td>Statistics (estimates)</td></tr>
+        <tr><td>Cost / effort</td><td>High — may be impossible</td><td>Lower — feasible</td></tr>
+        <tr><td>Error</td><td>No sampling error</td><td>Has sampling error</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:13px; font-weight:500; margin: 1rem 0 .5rem;">When to use each:</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label c-blue-label">Use Population when...</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • The group is small enough to measure fully<br>
+          • Data already exists for everyone (census, records)<br>
+          • Absolute precision is required (e.g. legal compliance)<br>
+          • You are studying a closed system (all employees at one company)
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label c-green-label">Use Sample when...</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • The population is too large or inaccessible<br>
+          • Time or budget is limited<br>
+          • Measurement is destructive (e.g. testing product lifespan)<br>
+          • You are doing surveys, clinical trials, or market research
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-green">
+      <strong>Real example:</strong> A country of 1.4 billion people wants to know average household income. Surveying every household is impossible — so they survey 100,000 households (sample) and use those results to estimate the national average (population parameter).
+    </div>
+
+    <div class="pro-con">
+      <div class="pro-box">
+        <div class="pro-title">Advantages of Sampling</div>
+        <div class="pro-item">• Fast and cost-effective</div>
+        <div class="pro-item">• Feasible when population is huge</div>
+        <div class="pro-item">• Enables repeated studies</div>
+        <div class="pro-item">• Less data management burden</div>
+      </div>
+      <div class="con-box">
+        <div class="con-title">Limitations of Sampling</div>
+        <div class="con-item">• Always has some error</div>
+        <div class="con-item">• Biased if not randomly drawn</div>
+        <div class="con-item">• May miss rare subgroups</div>
+        <div class="con-item">• Results are estimates, not truth</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ SECTION 2 ══ -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num n2">2</div>
+      <div>
+        <div class="section-title">Variance & Standard Deviation</div>
+        <div class="section-subtitle">How spread out is your data from the mean?</div>
+      </div>
+    </div>
+
+    <p class="lead">Two datasets can have the same average but look completely different. Variance and standard deviation measure how far individual values are from the mean — quantifying the <em>spread</em> or <em>dispersion</em> of the data.</p>
+
+    <!-- Visual: Spread Comparison -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — Low vs High Spread (same mean, different variance)</div>
+      <div class="chart-inner" style="height:200px; position:relative;">
+        <canvas id="spreadChart" role="img" aria-label="Two normal distributions with the same mean but different spreads">Two curves with mean=50: one narrow (low variance), one wide (high variance)</canvas>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card" style="border-top: 2px solid #1D9E75;">
+        <div class="card-label c-teal-label">Variance (σ² or s²)</div>
+        <div class="card-title">Average squared deviation</div>
+        <div class="card-desc">Measures how far each data point is from the mean, squared and averaged. Squaring removes negatives and amplifies large deviations.</div>
+      </div>
+      <div class="card" style="border-top: 2px solid #3B6D11;">
+        <div class="card-label c-green-label">Standard Deviation (σ or s)</div>
+        <div class="card-title">Square root of variance</div>
+        <div class="card-desc">Variance brought back to the original unit of measurement. Much easier to interpret — "spread in the same unit as the data."</div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-header">Population Variance & Standard Deviation</div>
+      <div class="formula">
+        Population Variance:
+        σ² = Σ(xᵢ − μ)² / N
+
+        Population Standard Deviation:
+        σ  = √[ Σ(xᵢ − μ)² / N ]
+      </div>
+      <div class="formula-note">
+        xᵢ = each individual value &nbsp;|&nbsp; μ = population mean &nbsp;|&nbsp; N = total population size &nbsp;|&nbsp; Σ = sum of all values
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-header">Sample Variance & Standard Deviation (Bessel's Correction)</div>
+      <div class="formula">
+        Sample Variance:
+        s² = Σ(xᵢ − x̄)² / (n − 1)
+
+        Sample Standard Deviation:
+        s  = √[ Σ(xᵢ − x̄)² / (n − 1) ]
+      </div>
+      <div class="formula-note">
+        x̄ = sample mean &nbsp;|&nbsp; n = sample size &nbsp;|&nbsp; (n − 1) = Bessel's correction — dividing by n would underestimate the true population variance, so we use n−1 to correct for this bias.
+      </div>
+    </div>
+
+    <div class="callout callout-amber">
+      <strong>Why (n − 1) and not n?</strong> When you compute the sample mean x̄, the data "uses up" one degree of freedom. The sample mean is always exactly at the center of the sample, which means we're not fully free — we've constrained the system. Dividing by (n − 1) corrects for this, giving an unbiased estimate of the population variance.
+    </div>
+
+    <div style="font-size:13px; font-weight:500; margin:1.25rem 0 .75rem;">Step-by-step example — computing variance for [4, 8, 6, 10, 2]:</div>
+    <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>Find mean:</strong> x̄ = (4+8+6+10+2) / 5 = <strong>6</strong></div></div>
+    <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>Subtract mean from each value:</strong> (4−6)=−2, (8−6)=+2, (6−6)=0, (10−6)=+4, (2−6)=−4</div></div>
+    <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Square each deviation:</strong> 4, 4, 0, 16, 16</div></div>
+    <div class="step-row"><div class="step-num">4</div><div class="step-text"><strong>Sum the squares:</strong> 4+4+0+16+16 = <strong>40</strong></div></div>
+    <div class="step-row"><div class="step-num">5</div><div class="step-text"><strong>Sample variance:</strong> s² = 40 / (5−1) = <strong>10</strong></div></div>
+    <div class="step-row"><div class="step-num">6</div><div class="step-text"><strong>Sample std deviation:</strong> s = √10 ≈ <strong>3.16</strong> (in the original units)</div></div>
+
+    <!-- Visual: SD Chart -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — Standard Deviation bands on a normal distribution (68–95–99.7 rule)</div>
+      <div class="chart-inner" style="height:220px;">
+        <canvas id="sdChart" role="img" aria-label="Normal distribution showing 1, 2, and 3 standard deviation bands">68% within 1SD, 95% within 2SD, 99.7% within 3SD</canvas>
+      </div>
+    </div>
+
+    <table class="diff-table">
+      <thead>
+        <tr><th>Feature</th><th>Variance</th><th>Standard Deviation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Formula</td><td>Σ(xᵢ − x̄)² / (n−1)</td><td>√ Variance</td></tr>
+        <tr><td>Unit</td><td>Squared units (e.g. kg²)</td><td>Original units (e.g. kg)</td></tr>
+        <tr><td>Interpretability</td><td>Harder — squared units feel abstract</td><td>Easy — same scale as data</td></tr>
+        <tr><td>Best used for</td><td>Mathematical calculations, ANOVA</td><td>Reporting, communication</td></tr>
+        <tr><td>Sensitivity to outliers</td><td>Very high (squaring amplifies extremes)</td><td>High (but sqrt reduces somewhat)</td></tr>
+        <tr><td>Symbol (Population)</td><td>σ²</td><td>σ</td></tr>
+        <tr><td>Symbol (Sample)</td><td>s²</td><td>s</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-size:13px; font-weight:500; margin:.75rem 0 .5rem;">When to use which:</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label c-teal-label">Use Variance when...</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Doing further calculations (e.g. combining variances, ANOVA, regression)<br>
+          • Comparing relative spread across different distributions<br>
+          • Working in mathematical/statistical models
+        </div>
+        <div class="tag-row"><span class="tag tag-blue">ANOVA</span><span class="tag tag-purple">Regression</span><span class="tag tag-green">Modelling</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label c-green-label">Use Std Dev when...</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Reporting and communicating results to an audience<br>
+          • Creating confidence intervals<br>
+          • Describing how much individual values vary from the mean
+        </div>
+        <div class="tag-row"><span class="tag tag-green">Reports</span><span class="tag tag-blue">Confidence intervals</span><span class="tag tag-amber">Finance</span></div>
+      </div>
+    </div>
+
+    <div class="pro-con">
+      <div class="pro-box">
+        <div class="pro-title">Advantages</div>
+        <div class="pro-item">• Summarizes spread in a single number</div>
+        <div class="pro-item">• Works with any continuous data</div>
+        <div class="pro-item">• Foundation for many statistical tests</div>
+        <div class="pro-item">• SD uses original units — easy to explain</div>
+      </div>
+      <div class="con-box">
+        <div class="con-title">Limitations</div>
+        <div class="con-item">• Highly sensitive to outliers</div>
+        <div class="con-item">• Variance has uninterpretable squared units</div>
+        <div class="con-item">• Doesn't describe the shape of distribution</div>
+        <div class="con-item">• Misleading if data is not symmetric</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ SECTION 3 ══ -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num n3">3</div>
+      <div>
+        <div class="section-title">Skewness — Shape Direction</div>
+        <div class="section-subtitle">Is your data leaning left, right, or perfectly balanced?</div>
+      </div>
+    </div>
+
+    <p class="lead">Skewness tells you whether your distribution has a long tail on one side. Even when the mean and standard deviation are similar, two datasets can have very different shapes — and skewness captures that asymmetry.</p>
+
+    <!-- Three distribution curves -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — Three types of skewness compared</div>
+      <div class="chart-inner" style="height:230px;">
+        <canvas id="skewChart" role="img" aria-label="Three distributions: left-skewed, symmetric, and right-skewed">Left-skewed (negative), Symmetric (zero skew), Right-skewed (positive)</canvas>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:1.25rem 0;">
+      <div class="card" style="border-top:2px solid #378ADD;">
+        <div class="card-label c-blue-label">Negative Skew</div>
+        <div class="card-title" style="font-size:13px;">Left-Skewed</div>
+        <div class="card-desc">Long tail on the <strong>left</strong>. Most data on the right (high values). Mean &lt; Median.</div>
+      </div>
+      <div class="card" style="border-top:2px solid #639922;">
+        <div class="card-label c-green-label">Zero / Symmetric</div>
+        <div class="card-title" style="font-size:13px;">Normal / Bell Curve</div>
+        <div class="card-desc">Perfectly balanced. Mean = Median = Mode. No tail bias.</div>
+      </div>
+      <div class="card" style="border-top:2px solid #E24B4A;">
+        <div class="card-label" style="color:#A32D2D;">Positive Skew</div>
+        <div class="card-title" style="font-size:13px;">Right-Skewed</div>
+        <div class="card-desc">Long tail on the <strong>right</strong>. Most data on the left (low values). Mean &gt; Median.</div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-header">Pearson's Skewness Formula (simplified)</div>
+      <div class="formula">
+        Skewness = 3 × (Mean − Median) / Standard Deviation
+
+        Or using moments (more precise):
+        Skewness = [ n / ((n−1)(n−2)) ] × Σ[ (xᵢ − x̄) / s ]³
+      </div>
+      <div class="formula-note">
+        Result &lt; 0  →  Left-skewed (negative skew)<br>
+        Result = 0  →  Symmetric (no skew)<br>
+        Result &gt; 0  →  Right-skewed (positive skew)<br><br>
+        Rule of thumb: |skewness| &lt; 0.5 = roughly symmetric &nbsp;|&nbsp; 0.5–1.0 = moderately skewed &nbsp;|&nbsp; &gt; 1.0 = highly skewed
+      </div>
+    </div>
+
+    <table class="diff-table">
+      <thead>
+        <tr><th>Feature</th><th>Negative (Left) Skew</th><th>Symmetric</th><th>Positive (Right) Skew</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tail direction</td><td>Left side</td><td>Both sides equal</td><td>Right side</td></tr>
+        <tr><td>Data concentration</td><td>High values / right</td><td>Around center</td><td>Low values / left</td></tr>
+        <tr><td>Mean vs Median</td><td>Mean &lt; Median</td><td>Mean = Median</td><td>Mean &gt; Median</td></tr>
+        <tr><td>Skewness value</td><td>Negative (&lt; 0)</td><td>Zero (= 0)</td><td>Positive (&gt; 0)</td></tr>
+        <tr><td>Real-world example</td><td>Retirement age, test scores (easy exam)</td><td>Height, IQ scores</td><td>Income, house prices</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-amber">
+      <strong>Memory trick:</strong> The skew is named after where the <em>tail</em> points — not where the bulk of data is. A right-skewed distribution has a long right tail (a few very high values), even though most of the data sits on the left.
+    </div>
+
+    <div style="font-size:13px; font-weight:500; margin:.75rem 0 .5rem;">When to use skewness:</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label c-amber-label">Situations that produce skew</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Income & wealth data (almost always right-skewed)<br>
+          • Property prices, asset values<br>
+          • Age at death, retirement age (often left-skewed)<br>
+          • Reaction times, exam scores
+        </div>
+        <div class="tag-row"><span class="tag tag-amber">Finance</span><span class="tag tag-blue">Healthcare</span><span class="tag tag-green">Education</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label c-coral-label">Why skewness matters</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Tells you if mean or median is better to use<br>
+          • Affects which statistical tests are valid<br>
+          • Reveals if data transformation is needed<br>
+          • Shows presence of floor/ceiling effects
+        </div>
+        <div class="tag-row"><span class="tag tag-red">Model selection</span><span class="tag tag-purple">Data prep</span></div>
+      </div>
+    </div>
+
+    <!-- Mean vs median visual -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — How mean and median shift with skewness</div>
+      <div class="chart-inner" style="height:200px;">
+        <canvas id="meanMedianChart" role="img" aria-label="Bar comparison of mean vs median in left-skewed, symmetric, and right-skewed distributions">Shows mean and median values for three distribution types</canvas>
+      </div>
+    </div>
+
+    <div class="pro-con">
+      <div class="pro-box">
+        <div class="pro-title">Advantages of measuring skewness</div>
+        <div class="pro-item">• Reveals asymmetry invisible in mean/SD</div>
+        <div class="pro-item">• Guides choice of mean vs median</div>
+        <div class="pro-item">• Informs whether log-transform is needed</div>
+        <div class="pro-item">• Essential for financial risk assessment</div>
+      </div>
+      <div class="con-box">
+        <div class="con-title">Limitations</div>
+        <div class="con-item">• Sensitive to outliers</div>
+        <div class="con-item">• Small samples can mislead</div>
+        <div class="con-item">• Doesn't fully describe tail behavior</div>
+        <div class="con-item">• Multiple formulas give different values</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ SECTION 4 ══ -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num n4">4</div>
+      <div>
+        <div class="section-title">Kurtosis — Peak & Tail Shape</div>
+        <div class="section-subtitle">How extreme are the extremes? How sharp is the peak?</div>
+      </div>
+    </div>
+
+    <p class="lead">While skewness measures <em>direction</em>, kurtosis measures <em>intensity</em> — specifically how sharp the peak is and how heavy the tails are. High kurtosis means more outliers are lurking in the tails than you'd expect from a normal distribution.</p>
+
+    <!-- Kurtosis visual -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — Three kurtosis types compared to normal distribution</div>
+      <div class="chart-inner" style="height:240px;">
+        <canvas id="kurtChart" role="img" aria-label="Three distribution curves showing leptokurtic, mesokurtic, and platykurtic shapes">Leptokurtic (tall/narrow), Mesokurtic (normal), Platykurtic (flat/wide)</canvas>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin:1.25rem 0;">
+      <div class="card" style="border-top:2px solid #7F77DD;">
+        <div class="card-label c-purple-label">Leptokurtic</div>
+        <div class="card-title" style="font-size:13px;">Tall Peak, Heavy Tails</div>
+        <div class="card-desc">Sharp, high peak. Thick tails with more extreme outliers than normal. "Tall and thin." Excess kurtosis &gt; 0.</div>
+      </div>
+      <div class="card" style="border-top:2px solid #888780;">
+        <div class="card-label" style="color:var(--color-text-secondary);">Mesokurtic</div>
+        <div class="card-title" style="font-size:13px;">Normal — The Baseline</div>
+        <div class="card-desc">Normal distribution shape. Moderate peak, moderate tails. Excess kurtosis = 0. This is the reference point.</div>
+      </div>
+      <div class="card" style="border-top:2px solid #EF9F27;">
+        <div class="card-label c-amber-label">Platykurtic</div>
+        <div class="card-title" style="font-size:13px;">Flat Peak, Thin Tails</div>
+        <div class="card-desc">Broad, flat peak. Light tails with fewer extreme outliers. "Short and fat." Excess kurtosis &lt; 0.</div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-header">Kurtosis Formula (fourth moment)</div>
+      <div class="formula">
+        Kurtosis (κ) = [ Σ(xᵢ − x̄)⁴ / n ] / s⁴
+
+        Excess Kurtosis (used in most software):
+        Excess Kurtosis = κ − 3
+
+        Sample formula (unbiased):
+        = [ n(n+1) / ((n−1)(n−2)(n−3)) ] × Σ[(xᵢ−x̄)/s]⁴  −  3(n−1)² / ((n−2)(n−3))
+      </div>
+      <div class="formula-note">
+        Normal distribution kurtosis = 3 (raw) &nbsp;|&nbsp; Excess kurtosis = 0<br>
+        Leptokurtic: excess kurtosis &gt; 0 &nbsp;|&nbsp; Platykurtic: excess kurtosis &lt; 0<br><br>
+        Most software (Excel, R, Python scipy.stats) returns <em>excess kurtosis</em> — already minus 3.
+      </div>
+    </div>
+
+    <div class="callout callout-purple">
+      <strong>Why subtract 3?</strong> A perfect normal distribution has kurtosis = 3. Subtracting 3 gives "excess kurtosis," which makes interpretation easier: positive means more extreme than normal, negative means less extreme. This is why it's also called <em>excess kurtosis</em>.
+    </div>
+
+    <table class="diff-table">
+      <thead>
+        <tr><th>Feature</th><th>Leptokurtic</th><th>Mesokurtic</th><th>Platykurtic</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Excess kurtosis</td><td>&gt; 0 (positive)</td><td>= 0</td><td>&lt; 0 (negative)</td></tr>
+        <tr><td>Peak shape</td><td>Sharp, high, narrow</td><td>Moderate</td><td>Flat, low, broad</td></tr>
+        <tr><td>Tail weight</td><td>Heavy (fat tails)</td><td>Moderate</td><td>Light (thin tails)</td></tr>
+        <tr><td>Outlier probability</td><td>Higher than normal</td><td>Normal baseline</td><td>Lower than normal</td></tr>
+        <tr><td>Visual look</td><td>"Tall and thin"</td><td>Standard bell</td><td>"Short and flat"</td></tr>
+        <tr><td>Real examples</td><td>Stock returns, financial crashes</td><td>Height, IQ</td><td>Rolling a fair die, uniform data</td></tr>
+        <tr><td>Risk implication</td><td>High tail risk — rare events more likely</td><td>Normal risk level</td><td>Low tail risk — extremes are rare</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Kurtosis bar chart -->
+    <div class="chart-wrap">
+      <div class="chart-label">Chart — Excess kurtosis values across common distributions</div>
+      <div class="chart-inner" style="height:220px;">
+        <canvas id="kurtBarChart" role="img" aria-label="Bar chart showing excess kurtosis values for different distributions">Excess kurtosis: Uniform=-1.2, Normal=0, Student t=6, Laplace=3</canvas>
+      </div>
+    </div>
+
+    <div style="font-size:13px; font-weight:500; margin:.75rem 0 .5rem;">When kurtosis matters most:</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label c-purple-label">High kurtosis (Leptokurtic)</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Financial modeling: stock market crashes, extreme returns<br>
+          • Risk management: "black swan" event probability<br>
+          • Quality control: identifying rare but extreme defects<br>
+          • Insurance: modeling rare catastrophic claims
+        </div>
+        <div class="tag-row"><span class="tag tag-red">High risk</span><span class="tag tag-purple">Finance</span><span class="tag tag-blue">Insurance</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label c-amber-label">Low kurtosis (Platykurtic)</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • Physical measurements with hard boundaries<br>
+          • Uniform random processes (rolling dice)<br>
+          • Environments where extreme outliers are impossible<br>
+          • Capped datasets (e.g. test scores 0–100)
+        </div>
+        <div class="tag-row"><span class="tag tag-green">Stable</span><span class="tag tag-amber">Bounded data</span></div>
+      </div>
+    </div>
+
+    <div class="pro-con">
+      <div class="pro-box">
+        <div class="pro-title">Why measure kurtosis</div>
+        <div class="pro-item">• Captures tail risk beyond standard deviation</div>
+        <div class="pro-item">• Critical for financial and actuarial models</div>
+        <div class="pro-item">• Flags non-normality in data</div>
+        <div class="pro-item">• Together with skewness = full shape picture</div>
+      </div>
+      <div class="con-box">
+        <div class="con-title">Limitations of kurtosis</div>
+        <div class="con-item">• Difficult to interpret without context</div>
+        <div class="con-item">• Requires large samples to be reliable</div>
+        <div class="con-item">• Often confused with "peakedness" alone</div>
+        <div class="con-item">• Two formulas (raw vs excess) cause confusion</div>
+      </div>
+    </div>
+
+    <!-- Final summary table -->
+    <div class="divider"></div>
+    <div style="font-size:15px; font-weight:500; margin-bottom:1rem;">Quick Summary — All Four Concepts</div>
+    <table class="diff-table">
+      <thead>
+        <tr><th>Concept</th><th>What it measures</th><th>Key formula piece</th><th>Main use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Population</strong></td><td>The full, complete group (N)</td><td>Divide by N; use μ</td><td>When everyone can be measured</td></tr>
+        <tr><td><strong>Sample</strong></td><td>A representative subset (n)</td><td>Divide by n−1; use x̄</td><td>Estimating population from a subset</td></tr>
+        <tr><td><strong>Variance</strong></td><td>Average squared deviation from mean</td><td>Σ(xᵢ−x̄)² / (n−1)</td><td>Mathematical/statistical calculations</td></tr>
+        <tr><td><strong>Std Dev</strong></td><td>Typical distance from mean (original units)</td><td>√Variance</td><td>Reporting, communication, intervals</td></tr>
+        <tr><td><strong>Skewness</strong></td><td>Asymmetry — which tail is longer</td><td>Third standardized moment</td><td>Finding direction of data lean</td></tr>
+        <tr><td><strong>Kurtosis</strong></td><td>Tailedness — how extreme the extremes are</td><td>Fourth standardized moment − 3</td><td>Outlier probability, tail risk</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-blue" style="margin-top:1.5rem;">
+      <strong>Use them together:</strong> Mean & SD tell you where data centers and how spread it is. Skewness tells you which direction it leans. Kurtosis tells you how extreme the outliers might be. All four together give you the full picture of a distribution's shape and behavior.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ SECTION 5 ══ -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num n1" style="background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA;">5</div>
+      <div>
+        <div class="section-title">Outliers</div>
+        <div class="section-subtitle">The rebels of your dataset</div>
+      </div>
+    </div>
+
+    <p class="lead">An outlier is a data point that differs significantly from other observations. They can be caused by measurement or execution errors, or they might indicate a genuine, rare anomaly in the underlying process.</p>
+
+    <!-- Outlier Concept Charts -->
+    <div class="chart-wrap">
+      <div class="chart-label">Visual — Types of Outliers</div>
+      <div class="chart-inner" style="height:250px; display:flex; gap: 10px;">
+        <div style="flex: 1; min-width: 0;"><canvas id="outlierSingleChart" role="img"></canvas></div>
+        <div style="flex: 1; min-width: 0;"><canvas id="outlierClusterChart" role="img"></canvas></div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:1.25rem 0;">
+      <div class="card" style="border-top:2px solid #378ADD;">
+        <div class="card-label c-blue-label">Single Outlier</div>
+        <div class="card-title" style="font-size:13px;">Point Anomaly</div>
+        <div class="card-desc">An individual data point is entirely separated from the rest of the data. Often a typo or measurement error.</div>
+      </div>
+      <div class="card" style="border-top:2px solid #639922;">
+        <div class="card-label c-green-label">Cluster Outliers</div>
+        <div class="card-title" style="font-size:13px;">Collective Anomaly</div>
+        <div class="card-desc">A group of anomalous data points. Indicates a potential structural shift or a new subgroup forming.</div>
+      </div>
+    </div>
+
+    <!-- Box and Whisker Chart Explanation -->
+    <div class="chart-wrap" style="margin-top:3rem; border: none; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1); border-radius: 16px; overflow: hidden;">
+      <div class="chart-label" style="background: linear-gradient(135deg, #4F46E5, #8B5CF6); color: white; border: none; font-weight: 600; padding: 12px 20px; font-size: 14px;">Anatomy of a Box and Whisker Plot (Statistical Outliers)</div>
+      <div class="chart-inner" style="padding: 4.5rem 1rem 2.5rem; text-align: center; background: radial-gradient(#CBD5E1 1.5px, transparent 1.5px); background-size: 24px 24px; background-color: #F8FAFC; overflow-x: auto;">
+        
+        <!-- CSS Boxplot -->
+        <div style="position: relative; width: 100%; min-width: 500px; max-width: 650px; margin: 0 auto 3.5rem; height: 100px; display: flex; align-items: center; font-family: var(--font-sans);">
+          
+          <!-- Dashed Axis Line -->
+          <div style="position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed #94A3B8; z-index: 0; transform: translateY(-50%);"></div>
+
+          <!-- Whisker Left -->
+          <div style="position: absolute; left: 15%; right: 35%; height: 3px; background: linear-gradient(90deg, #94A3B8, #64748B); top: 50%; z-index: 1; transform: translateY(-50%);"></div>
+          <!-- Whisker Right -->
+          <div style="position: absolute; left: 65%; right: 15%; height: 3px; background: linear-gradient(90deg, #64748B, #94A3B8); top: 50%; z-index: 1; transform: translateY(-50%);"></div>
+          
+          <!-- Lower bound tick -->
+          <div style="position: absolute; left: 15%; top: 25%; bottom: 25%; width: 4px; background: #64748B; z-index: 2; border-radius: 2px;"></div>
+          <div style="position: absolute; left: 15%; top: 85%; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: #475569; background: white; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); line-height: 1.3; border: 1px solid #E2E8F0;">Lower Bound<br><span style="color:#64748B; font-weight:500;">Q1 - 1.5×IQR</span></div>
+          
+          <!-- Upper bound tick -->
+          <div style="position: absolute; left: 85%; top: 25%; bottom: 25%; width: 4px; background: #64748B; z-index: 2; border-radius: 2px;"></div>
+          <div style="position: absolute; left: 85%; top: 85%; transform: translateX(-50%); font-size: 11px; font-weight: 700; color: #475569; background: white; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); line-height: 1.3; border: 1px solid #E2E8F0;">Upper Bound<br><span style="color:#64748B; font-weight:500;">Q3 + 1.5×IQR</span></div>
+          
+          <!-- The Box (IQR) -->
+          <div style="position: absolute; left: 35%; right: 35%; height: 64px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.25)); backdrop-filter: blur(4px); border: 2px solid rgba(99, 102, 241, 0.6); box-shadow: 0 8px 20px -6px rgba(99, 102, 241, 0.4); z-index: 3; top: 50%; transform: translateY(-50%); border-radius: 8px;"></div>
+          
+          <!-- Q1 / Q3 Labels -->
+          <div style="position: absolute; left: 35%; top: -40px; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: white; background: #4F46E5; padding: 4px 12px; border-radius: 20px; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);">Q1 (25th)</div>
+          <div style="position: absolute; left: 65%; top: -40px; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: white; background: #8B5CF6; padding: 4px 12px; border-radius: 20px; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);">Q3 (75th)</div>
+          
+          <!-- Median -->
+          <div style="position: absolute; left: 52%; height: 64px; width: 4px; background: #312E81; z-index: 4; top: 50%; transform: translateY(-50%); border-radius: 2px;"></div>
+          <div style="position: absolute; left: 52%; top: -40px; transform: translateX(-50%); font-size: 12px; font-weight: 800; color: #1E1B4B; background: #E0E7FF; border: 2px solid #C7D2FE; padding: 4px 12px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Median</div>
+          
+          <!-- IQR Label -->
+          <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 15px; font-weight: 800; color: rgba(67, 56, 202, 0.8); z-index: 5; letter-spacing: 1px;">IQR</div>
+
+          <!-- Glowing Outliers Left -->
+          <div style="position: absolute; left: 2%; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #FCA5A5, #DC2626); border-radius: 50%; z-index: 5; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), inset 0 1px 2px rgba(255,255,255,0.5);"></div>
+          <div style="position: absolute; left: 7%; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #FCA5A5, #DC2626); border-radius: 50%; z-index: 5; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), inset 0 1px 2px rgba(255,255,255,0.5);"></div>
+          
+          <!-- Glowing Outliers Right -->
+          <div style="position: absolute; left: 93%; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #FCA5A5, #DC2626); border-radius: 50%; z-index: 5; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), inset 0 1px 2px rgba(255,255,255,0.5);"></div>
+          <div style="position: absolute; left: 97.5%; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; background: radial-gradient(circle at 30% 30%, #FCA5A5, #DC2626); border-radius: 50%; z-index: 5; box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), inset 0 1px 2px rgba(255,255,255,0.5);"></div>
+          
+          <!-- Outlier Labels -->
+          <div style="position: absolute; left: 4.5%; top: 85%; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: #DC2626; background: #FEF2F2; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15); border: 1px solid #FECACA;">Outliers</div>
+          <div style="position: absolute; left: 95.5%; top: 85%; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: #DC2626; background: #FEF2F2; padding: 6px 10px; border-radius: 6px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15); border: 1px solid #FECACA;">Outliers</div>
+        </div>
+
+        <p class="prose" style="text-align: left; max-width: 650px; margin: 1.5rem auto 0; font-size: 15px; line-height: 1.6; color: #334155; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #E2E8F0;">A <strong>Box and Whisker plot</strong> visually summarizes a dataset's distribution. The <strong style="color:#4F46E5;">box</strong> represents the Interquartile Range (IQR) containing the middle 50% of the data. The <strong style="color:#475569;">whiskers</strong> extend to the lowest and highest values still within a 1.5× IQR safety buffer. Any points falling outside these whiskers are mathematically considered <strong style="color:#DC2626;">outliers</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Z-Score Breakdown -->
+    <div class="formula-box" style="margin-top: 3rem;">
+      <div class="formula-header">Method 1: Z-Score (Best for Normally Distributed Data)</div>
+      <div class="formula" style="font-size: 16px;">
+        Z = (X − μ) / σ
+      </div>
+      <div class="formula-note" style="margin-bottom: 1.5rem; font-size: 13px;">
+        <strong>X</strong> = Specific Data Point &nbsp;&nbsp;|&nbsp;&nbsp; <strong>μ</strong> = Population Mean &nbsp;&nbsp;|&nbsp;&nbsp; <strong>σ</strong> = Standard Deviation
+      </div>
+      
+      <div style="font-size:14px; font-weight:600; margin-bottom:1rem; color:#111827;">How it works:</div>
+      <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>Find the Mean (μ) and Std Dev (σ)</strong> of your entire dataset.</div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>Subtract the mean</strong> from a specific data point (X). This tells you its absolute distance from the center.</div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Divide by the Standard Deviation (σ).</strong> This converts the distance into "standard units." A Z-score of 2 means the point is exactly 2 standard deviations away from the mean.</div></div>
+      <div class="step-row"><div class="step-num" style="background:#DC2626; border:none;">4</div><div class="step-text"><strong>Flag Outliers:</strong> Any data point with a Z-score greater than <strong>+3</strong> or less than <strong>-3</strong> is typically flagged as an outlier (it falls outside 99.7% of expected normal data).</div></div>
+      
+      <div class="callout callout-amber" style="margin-top: 1.5rem; margin-bottom: 0;">
+        <strong>Limitation:</strong> Because Z-Score relies on the Mean and Std Dev (which are themselves easily skewed by outliers), this method struggles if you have massive, extreme anomalies already polluting the dataset.
+      </div>
+    </div>
+
+    <!-- IQR Breakdown -->
+    <div class="formula-box">
+      <div class="formula-header">Method 2: IQR Boxplot (Best for Skewed or Messy Data)</div>
+      <div class="formula">
+        IQR = Q3 − Q1
+        Lower Bound = Q1 − (1.5 × IQR)
+        Upper Bound = Q3 + (1.5 × IQR)
+      </div>
+      <div class="formula-note" style="margin-bottom: 1.5rem; font-size: 13px;">
+        <strong>Q1</strong> = 25th Percentile (lower quartile) &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Q3</strong> = 75th Percentile (upper quartile)
+      </div>
+
+      <div style="font-size:14px; font-weight:600; margin-bottom:1rem; color:#111827;">How it works:</div>
+      <div class="step-row"><div class="step-num">1</div><div class="step-text"><strong>Find Quartile 1 (Q1) and Quartile 3 (Q3)</strong>. Q1 is the median of the lower half of your data. Q3 is the median of the upper half.</div></div>
+      <div class="step-row"><div class="step-num">2</div><div class="step-text"><strong>Calculate the IQR.</strong> Subtract Q1 from Q3. This is the "middle box" containing 50% of your data.</div></div>
+      <div class="step-row"><div class="step-num">3</div><div class="step-text"><strong>Multiply IQR by 1.5.</strong> This gives you a safe "buffer zone" distance extending outwards.</div></div>
+      <div class="step-row"><div class="step-num" style="background:#DC2626; border:none;">4</div><div class="step-text"><strong>Set the Fences.</strong> Subtract the buffer from Q1 (Lower Bound), and add it to Q3 (Upper Bound). Any value falling outside these fences is an outlier.</div></div>
+      
+      <div class="callout callout-green" style="margin-top: 1.5rem; margin-bottom: 0;">
+        <strong>Advantage:</strong> Medians and Quartiles are "robust" to outliers. One massive anomaly won't shift Q1 or Q3 very much, making this a much safer detection method for messy data than the Z-Score.
+      </div>
+    </div>
+
+    <div style="font-size:13px; font-weight:500; margin: 1rem 0 .5rem;">Why Outliers are Useful (and Dangerous):</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label c-teal-label">The Good (Useful Insights)</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • <strong>Fraud detection:</strong> Unusual credit card transactions.<br>
+          • <strong>Medical discovery:</strong> A patient reacting unexpectedly well to a drug.<br>
+          • <strong>System health:</strong> Identifying a failing server or sensor.<br>
+          • <strong>Market gaps:</strong> Identifying unserved highly-profitable niches.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label c-coral-label">The Bad (Statistical Problems)</div>
+        <div class="card-desc" style="margin-top:.25rem">
+          • <strong>Skewed averages:</strong> One billionaire ruins the average income metric.<br>
+          • <strong>Model disruption:</strong> Linear regression is highly sensitive to outliers.<br>
+          • <strong>Variance explosion:</strong> They massively inflate variance and std dev.<br>
+          • <strong>False conclusions:</strong> Taking action based on noisy, errant data.
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-con">
+      <div class="pro-box">
+        <div class="pro-title">How to Handle Them</div>
+        <div class="pro-item"><strong>Keep them:</strong> If they represent real, important phenomena.</div>
+        <div class="pro-item"><strong>Remove them (Trimming):</strong> If they are definitely errors/typos.</div>
+        <div class="pro-item"><strong>Cap them (Winsorizing):</strong> Limit extreme values to a percentile threshold (e.g., 99th).</div>
+        <div class="pro-item"><strong>Transform data:</strong> Use log transformations to reduce the pull of extreme values.</div>
+      </div>
+      <div class="con-box">
+        <div class="con-title">Common Mistakes</div>
+        <div class="con-item">Blindly deleting outliers without investigating why they occurred.</div>
+        <div class="con-item">Using the mean (instead of median) when extreme outliers exist.</div>
+        <div class="con-item">Assuming all outliers are "bad data."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <strong>Omni Data Analysis Module</strong> | Module 1: Excel Statistics & Probability Distributions<br>
+  <em>Interactive Statistics Documentation & Visualizations</em>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const textColor = isDark ? '#9c9a92' : '#73726c';
+const baseOpts = { responsive:true, maintainAspectRatio:false, animation: {duration: 1000, easing: 'easeOutQuart'}, plugins:{ legend:{display:false}, tooltip:{backgroundColor:'rgba(15, 23, 42, 0.9)', padding:12, titleFont:{size:13}, bodyFont:{size:12}, cornerRadius:8} }, scales:{ x:{ grid:{color:gridColor}, ticks:{color:textColor,font:{size:11}} }, y:{ grid:{color:gridColor}, ticks:{color:textColor,font:{size:11}} } } };
+
+function normalDist(x, mu, sigma) {
+  return (1/(sigma*Math.sqrt(2*Math.PI))) * Math.exp(-0.5*((x-mu)/sigma)**2);
+}
+function generateCurve(mu, sigma, xMin, xMax, steps=100) {
+  const labels=[]; const data=[];
+  for(let i=0;i<=steps;i++){
+    const x = xMin + (xMax-xMin)*(i/steps);
+    labels.push(x.toFixed(1));
+    data.push(normalDist(x, mu, sigma));
+  }
+  return {labels, data};
+}
+
+// 1. Population vs Sample — dot chart
+(function(){
+  const ctx = document.getElementById('popChart').getContext('2d');
+  const popDots = Array.from({length:80}, (_,i)=> ({x: 5+(i%20)*3.5, y:20+Math.floor(i/20)*20}));
+  const sampleDots = Array.from({length:20}, (_,i)=> ({x:5+(i%10)*7, y:78}));
+  new Chart(ctx, {
+    type:'scatter',
+    data:{
+      datasets:[
+        {label:'Population', data: popDots.map(d=>({x:d.x,y:d.y})), backgroundColor: isDark?'rgba(56,138,221,0.3)':'rgba(56,138,221,0.2)', pointRadius:5, pointBorderColor: isDark?'#378ADD':'#185FA5', pointBorderWidth:1},
+        {label:'Sample', data: sampleDots.map(d=>({x:d.x,y:d.y})), backgroundColor:'rgba(233,89,60,0.8)', pointRadius:6, pointBorderColor:'#E8593C', pointBorderWidth:1.5}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:true, position:'bottom', labels:{color:textColor, font:{size:11}, boxWidth:10, padding:16}},
+        tooltip:{enabled:false}
+      },
+      scales:{
+        x:{display:false, min:0, max:80},
+        y:{display:false, min:5, max:110, reverse:true}
+      },
+      animation:{duration:600}
+    }
+  });
+})();
+
+// 2. Spread chart
+(function(){
+  const ctx = document.getElementById('spreadChart').getContext('2d');
+  const xs = Array.from({length:100},(_,i)=>20+i*0.6);
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: xs.map(x=>x.toFixed(1)),
+      datasets:[
+        {label:'Low variance (σ=3)', data: xs.map(x=>normalDist(x,50,3)), borderColor:'#378ADD', borderWidth:2, fill:true, backgroundColor:isDark?'rgba(56,138,221,0.08)':'rgba(56,138,221,0.07)', pointRadius:0, tension:0.4},
+        {label:'High variance (σ=10)', data: xs.map(x=>normalDist(x,50,10)), borderColor:'#E8593C', borderWidth:2, fill:true, backgroundColor:isDark?'rgba(232,89,60,0.06)':'rgba(232,89,60,0.05)', pointRadius:0, tension:0.4}
+      ]
+    },
+    options:{...baseOpts, plugins:{legend:{display:true, position:'bottom', labels:{color:textColor, font:{size:11}, boxWidth:10, padding:16}}}}
+  });
+})();
+
+// 3. SD bands chart
+(function(){
+  const ctx = document.getElementById('sdChart').getContext('2d');
+  const xs = Array.from({length:120},(_,i)=>-3.5+i*(7/120));
+  const ys = xs.map(x=>normalDist(x,0,1));
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: xs.map(x=>x.toFixed(2)),
+      datasets:[
+        {data:ys, borderColor:'#185FA5', borderWidth:2, fill:false, pointRadius:0, tension:0.4},
+        {data:xs.map(x=>Math.abs(x)<=1?normalDist(x,0,1):null), borderColor:'transparent', fill:true, backgroundColor:isDark?'rgba(56,138,221,0.35)':'rgba(56,138,221,0.2)', pointRadius:0, spanGaps:false, tension:0.4},
+        {data:xs.map(x=>Math.abs(x)<=2?normalDist(x,0,1):null), borderColor:'transparent', fill:true, backgroundColor:isDark?'rgba(56,138,221,0.18)':'rgba(56,138,221,0.1)', pointRadius:0, spanGaps:false, tension:0.4},
+        {data:xs.map(x=>Math.abs(x)<=3?normalDist(x,0,1):null), borderColor:'transparent', fill:true, backgroundColor:isDark?'rgba(56,138,221,0.09)':'rgba(56,138,221,0.06)', pointRadius:0, spanGaps:false, tension:0.4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        annotation:{annotations:{}}
+      },
+      scales:{
+        x:{grid:{color:gridColor}, ticks:{color:textColor, font:{size:10}, maxTicksLimit:8, callback:(v,i,a)=>{const val=xs[i]; return val!==undefined&&Math.abs(val)<0.15?'μ':Math.abs(Math.abs(val)-1)<0.07?'±1σ':Math.abs(Math.abs(val)-2)<0.07?'±2σ':Math.abs(Math.abs(val)-3)<0.07?'±3σ':''}}},
+        y:{display:false}
+      }
+    }
+  });
+})();
+
+// 4. Skew chart
+(function(){
+  const ctx = document.getElementById('skewChart').getContext('2d');
+  const xs = Array.from({length:100},(_,i)=>i*0.08);
+  function betaDist(x, a, b) {
+    if(x<=0||x>=1) return 0;
+    return Math.pow(x,a-1)*Math.pow(1-x,b-1)*20;
+  }
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: xs.map(x=>x.toFixed(2)),
+      datasets:[
+        {label:'Negative skew', data:xs.map(x=>betaDist(x,5,2)), borderColor:'#378ADD', borderWidth:2.5, fill:true, backgroundColor:isDark?'rgba(56,138,221,0.1)':'rgba(56,138,221,0.08)', pointRadius:0, tension:0.4},
+        {label:'Symmetric', data:xs.map(x=>betaDist(x,5,5)), borderColor:'#639922', borderWidth:2.5, fill:true, backgroundColor:isDark?'rgba(99,153,34,0.1)':'rgba(99,153,34,0.07)', pointRadius:0, tension:0.4},
+        {label:'Positive skew', data:xs.map(x=>betaDist(x,2,5)), borderColor:'#E24B4A', borderWidth:2.5, fill:true, backgroundColor:isDark?'rgba(226,75,74,0.1)':'rgba(226,75,74,0.07)', pointRadius:0, tension:0.4}
+      ]
+    },
+    options:{...baseOpts, plugins:{legend:{display:true, position:'bottom', labels:{color:textColor, font:{size:11}, boxWidth:10, padding:16}}}}
+  });
+})();
+
+// 5. Mean vs Median chart
+(function(){
+  const ctx = document.getElementById('meanMedianChart').getContext('2d');
+  new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels:['Left-skewed', 'Symmetric', 'Right-skewed'],
+      datasets:[
+        {label:'Mean', data:[42, 50, 68], backgroundColor: isDark?'rgba(56,138,221,0.7)':'rgba(56,138,221,0.75)', borderRadius:4},
+        {label:'Median', data:[55, 50, 45], backgroundColor: isDark?'rgba(99,153,34,0.7)':'rgba(99,153,34,0.75)', borderRadius:4}
+      ]
+    },
+    options:{
+      ...baseOpts,
+      plugins:{legend:{display:true, position:'bottom', labels:{color:textColor, font:{size:11}, boxWidth:10, padding:16}}},
+      scales:{...baseOpts.scales, y:{...baseOpts.scales.y, min:30, max:80, ticks:{color:textColor, font:{size:11}}}}
+    }
+  });
+})();
+
+// 6. Kurtosis curves
+(function(){
+  const ctx = document.getElementById('kurtChart').getContext('2d');
+  function laplace(x, mu, b) { return (1/(2*b))*Math.exp(-Math.abs(x-mu)/b); }
+  function uniform(x, a, b2) { return (x>=a&&x<=b2)?1/(b2-a):0; }
+  const xs = Array.from({length:120},(_,i)=>-4+i*(8/120));
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels:xs.map(x=>x.toFixed(2)),
+      datasets:[
+        {label:'Leptokurtic (heavy tails)', data:xs.map(x=>laplace(x,0,0.7)), borderColor:'#7F77DD', borderWidth:2.5, fill:false, pointRadius:0, tension:0.4},
+        {label:'Mesokurtic (normal)', data:xs.map(x=>normalDist(x,0,1)), borderColor:'#888780', borderWidth:2, fill:false, pointRadius:0, tension:0.4, borderDash:[6,3]},
+        {label:'Platykurtic (light tails)', data:xs.map(x=>uniform(x,-2.5,2.5)*0.6), borderColor:'#EF9F27', borderWidth:2.5, fill:false, pointRadius:0, tension:0.1}
+      ]
+    },
+    options:{...baseOpts, plugins:{legend:{display:true, position:'bottom', labels:{color:textColor, font:{size:11}, boxWidth:10, padding:16}}}}
+  });
+})();
+
+// 7. Kurtosis bar
+(function(){
+  const ctx = document.getElementById('kurtBarChart').getContext('2d');
+  const vals = [-1.2, 0, 3, 6];
+  const colors = vals.map(v=>v<0?'#EF9F27':v===0?'#888780':v<=3?'#7F77DD':'#E24B4A');
+  new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels:['Uniform dist.', 'Normal dist.', 'Laplace dist.', "Student's t (df=4)"],
+      datasets:[{
+        label:'Excess Kurtosis',
+        data: vals,
+        backgroundColor: isDark ? colors.map(c=>c+'bb') : colors.map(c=>c+'cc'),
+        borderRadius:5
+      }]
+    },
+    options:{
+      ...baseOpts,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{grid:{color:gridColor}, ticks:{color:textColor, font:{size:10}, maxRotation:0}},
+        y:{grid:{color:gridColor}, ticks:{color:textColor, font:{size:11}}, title:{display:true, text:'Excess Kurtosis', color:textColor, font:{size:11}}}
+      }
+    }
+  });
+})();
+
+// 8. Outlier Charts
+(function(){
+  // Single Outlier
+  const ctx1 = document.getElementById('outlierSingleChart').getContext('2d');
+  const mainPoints = Array.from({length: 40}, () => ({x: 10 + Math.random()*25, y: 10 + Math.random()*25}));
+  const singleOutlier = [{x: 85, y: 85}];
+  new Chart(ctx1, {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {label:'Normal Data', data: mainPoints, backgroundColor: 'rgba(59, 130, 246, 0.7)', borderColor: '#2563EB', borderWidth: 1, pointRadius: 5, pointHoverRadius: 7},
+        {label:'Outlier', data: singleOutlier, backgroundColor: 'rgba(239, 68, 68, 0.9)', borderColor: '#DC2626', borderWidth: 2, pointRadius: 7, pointHoverRadius: 10}
+      ]
+    },
+    options: {
+      ...baseOpts,
+      plugins:{...baseOpts.plugins, title:{display:true, text:'Single Outlier', font:{size:13, weight:'bold'}, color:'#334155', padding:{bottom:15}}},
+      scales: {x:{grid:{color:gridColor}, ticks:{display:false}, min:0, max:100}, y:{grid:{color:gridColor}, ticks:{display:false}, min:0, max:100}}
+    }
+  });
+
+  // Cluster Outlier
+  const ctx2 = document.getElementById('outlierClusterChart').getContext('2d');
+  const clusterOutlier = Array.from({length: 8}, () => ({x: 75 + Math.random()*15, y: 75 + Math.random()*15}));
+  new Chart(ctx2, {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {label:'Normal Data', data: mainPoints, backgroundColor: 'rgba(16, 185, 129, 0.7)', borderColor: '#059669', borderWidth: 1, pointRadius: 5, pointHoverRadius: 7},
+        {label:'Outlier Cluster', data: clusterOutlier, backgroundColor: 'rgba(239, 68, 68, 0.9)', borderColor: '#DC2626', borderWidth: 1.5, pointRadius: 5.5, pointHoverRadius: 8}
+      ]
+    },
+    options: {
+      ...baseOpts,
+      plugins:{...baseOpts.plugins, title:{display:true, text:'Cluster Outliers', font:{size:13, weight:'bold'}, color:'#334155', padding:{bottom:15}}},
+      scales: {x:{grid:{color:gridColor}, ticks:{display:false}, min:0, max:100}, y:{grid:{color:gridColor}, ticks:{display:false}, min:0, max:100}}
+    }
+  });
+
+  // Note: The Boxplot conceptual chart was moved to a pure HTML/CSS diagram for clarity
+})();
+</script>
