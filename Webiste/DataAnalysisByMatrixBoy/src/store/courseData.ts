@@ -76,11 +76,9 @@ export const courseModules: Module[] = [
     title: 'Module 3: SQL Fundamentals',
     description: 'Learn to query databases, filter data, and join multiple tables together.',
     lessons: [
-      { id: 'select-where', title: 'SELECT & WHERE', duration: '10 min', isCompleted: false },
-      { id: 'order-group', title: 'ORDER BY & GROUP BY', duration: '12 min', isCompleted: false },
-      { id: 'joins', title: 'INNER, LEFT & RIGHT JOINs', duration: '20 min', isCompleted: false },
-      { id: 'subqueries', title: 'Subqueries', duration: '15 min', isCompleted: false },
-      { id: 'sql-simulator', title: 'Interactive SQL Simulator', duration: '30 min', isCompleted: false },
+      { id: 'sql-basics', title: 'SQL Basics (SELECT, WHERE)', duration: '15 min', isCompleted: false },
+      { id: 'sql-joins', title: 'Joins & Aggregations', duration: '20 min', isCompleted: false },
+      { id: 'sql-advanced', title: 'Advanced SQL (Window Functions)', duration: '25 min', isCompleted: false },
     ]
   },
   {

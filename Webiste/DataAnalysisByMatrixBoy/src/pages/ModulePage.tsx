@@ -40,6 +40,11 @@ import { TypesOfData } from '../components/lessons/Intro/TypesOfData';
 import { DataAnalysisLifecycle } from '../components/lessons/Intro/DataAnalysisLifecycle';
 import { RealWorldApplications } from '../components/lessons/Intro/RealWorldApplications';
 
+// Module 3 Lessons (SQL)
+import { SQLBasicsLesson } from '../components/lessons/Module2/SQLBasicsLesson';
+import { SQLJoinsLesson } from '../components/lessons/Module2/SQLJoinsLesson';
+import { SQLAdvancedLesson } from '../components/lessons/Module2/SQLAdvancedLesson';
+
 // Interactive Components
 import { FormulaExplainer } from '../components/ui/LessonComponents';
 import { SQLSimulator } from '../components/engines/SQLSimulator';
@@ -99,34 +104,22 @@ export const ModulePage: React.FC = () => {
             </div>
           </motion.div>
         );
-      case 'sql-simulator':
+      case 'sql-basics':
         return (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none">
-            <LessonHeader 
-              module="Module 3: SQL Fundamentals" 
-              title="Interactive Query Simulator" 
-              description="Write and execute SQL queries directly in the browser to master database concepts." 
-            />
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-              <SQLSimulator 
-                initialQuery={"SELECT name, salary \nFROM employees \nWHERE department = 'Engineering' \nORDER BY salary DESC;"}
-                schema={{
-                  tableName: 'employees',
-                  columns: [
-                    { name: 'id', type: 'number' },
-                    { name: 'name', type: 'string' },
-                    { name: 'department', type: 'string' },
-                    { name: 'salary', type: 'number' }
-                  ]
-                }}
-                initialData={[
-                  { id: 1, name: 'Alice Smith', department: 'Engineering', salary: 120000 },
-                  { id: 2, name: 'Bob Jones', department: 'Sales', salary: 85000 },
-                  { id: 3, name: 'Charlie Davis', department: 'Engineering', salary: 135000 },
-                  { id: 4, name: 'Diana Evans', department: 'Marketing', salary: 90000 }
-                ]}
-              />
-            </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <SQLBasicsLesson />
+          </motion.div>
+        );
+      case 'sql-joins':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <SQLJoinsLesson />
+          </motion.div>
+        );
+      case 'sql-advanced':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <SQLAdvancedLesson />
           </motion.div>
         );
       case 'linear-regression':
@@ -151,7 +144,7 @@ export const ModulePage: React.FC = () => {
     }
   };
 
-  const interactiveLessonIds = ['z-score', 'sql-simulator', 'linear-regression'];
+  const interactiveLessonIds = ['z-score', 'sql-basics', 'sql-joins', 'sql-advanced', 'linear-regression'];
   const regularLessonIds = [
     'what-is-da', 'types-of-data', 'da-lifecycle', 'da-applications', 
     'xlookup', 'index-match', 'nested-ifs', 'sumifs-iferror', 
