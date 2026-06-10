@@ -83,7 +83,6 @@ export const GlobalFooter: React.FC = () => {
       </div>
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-800 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
         <p>© {new Date().getFullYear()} MatrixBoy Analytics. All rights reserved.</p>
-        <p className="flex items-center gap-1">Designed with <span className="text-red-500">♥</span> for Data</p>
       </div>
     </footer>
   );
