@@ -14,7 +14,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children, activeLessonId, 
       <Sidebar activeLessonId={activeLessonId} onSelectLesson={onSelectLesson} />
       
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-        <TopBar activeLessonId={activeLessonId} />
+        <TopBar activeLessonId={activeLessonId} onGoToDashboard={() => onSelectLesson('')} />
         
         <main className="flex-1 overflow-y-auto scroll-smooth relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 -z-10" />

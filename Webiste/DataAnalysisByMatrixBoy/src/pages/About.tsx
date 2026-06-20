@@ -159,7 +159,7 @@ export const About: React.FC = () => {
                   <td className="p-4 font-medium text-slate-900 flex items-center gap-2">
                     <div className="w-2 h-2 rounded-full bg-emerald-500"></div> Backend
                   </td>
-                  <td className="p-4 text-slate-600">Node.js, Express</td>
+                  <td className="p-4 text-slate-600">Python</td>
                 </tr>
                 <tr className="hover:bg-slate-50/50 transition-colors">
                   <td className="p-4 font-medium text-slate-900 flex items-center gap-2">

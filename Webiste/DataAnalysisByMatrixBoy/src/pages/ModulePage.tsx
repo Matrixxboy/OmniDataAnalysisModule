@@ -45,6 +45,16 @@ import { SQLBasicsLesson } from '../components/lessons/Module2/SQLBasicsLesson';
 import { SQLJoinsLesson } from '../components/lessons/Module2/SQLJoinsLesson';
 import { SQLAdvancedLesson } from '../components/lessons/Module2/SQLAdvancedLesson';
 
+// Module 5 Lessons (Statistics)
+import { CentralTendencyLesson } from '../components/lessons/Module5/CentralTendencyLesson';
+import { VarianceStdLesson } from '../components/lessons/Module5/VarianceStdLesson';
+import { ProbabilityDistributionsLesson } from '../components/lessons/Module5/ProbabilityDistributionsLesson';
+import { CorrelationLesson } from '../components/lessons/Module5/CorrelationLesson';
+import { HypothesisTestingLesson } from '../components/lessons/Module5/HypothesisTestingLesson';
+import { ConfidenceIntervalsLesson } from '../components/lessons/Module5/ConfidenceIntervalsLesson';
+import { ZScoreLesson } from '../components/lessons/Module5/ZScoreLesson';
+import { LinearRegressionLesson } from '../components/lessons/Module5/LinearRegressionLesson';
+
 // Interactive Components
 import { FormulaExplainer } from '../components/ui/LessonComponents';
 import { SQLSimulator } from '../components/engines/SQLSimulator';
@@ -83,25 +93,52 @@ export const ModulePage: React.FC = () => {
 
   const renderInteractiveLesson = () => {
     switch (activeLessonId) {
+      case 'central-tendency':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <CentralTendencyLesson />
+          </motion.div>
+        );
+      case 'variance-std':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <VarianceStdLesson />
+          </motion.div>
+        );
+      case 'probability-distributions':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <ProbabilityDistributionsLesson />
+          </motion.div>
+        );
+      case 'correlation':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <CorrelationLesson />
+          </motion.div>
+        );
+      case 'hypothesis-testing':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <HypothesisTestingLesson />
+          </motion.div>
+        );
+      case 'confidence-intervals':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <ConfidenceIntervalsLesson />
+          </motion.div>
+        );
       case 'z-score':
         return (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none">
-            <LessonHeader 
-              module="Module 5: Statistics for Data Analysis" 
-              title="Understanding Z-Scores" 
-              description="A Z-score describes a value's relationship to the mean of a group of values." 
-            />
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-              <FormulaExplainer 
-                formula={String.raw`Z = \frac{x - \mu}{\sigma}`} 
-                variables={[
-                  { id: "x", label: "Raw Score", value: 85, min: 0, max: 100, step: 1, color: "text-purple-600" },
-                  { id: String.raw`\mu`, label: "Population Mean", value: 70, min: 0, max: 100, step: 1, color: "text-indigo-600" },
-                  { id: String.raw`\sigma`, label: "Standard Deviation", value: 10, min: 1, max: 30, step: 1, color: "text-emerald-600" }
-                ]} 
-                calculateResult={(vars) => (vars["x"] - vars[String.raw`\mu`]) / vars[String.raw`\sigma`]} 
-              />
-            </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <ZScoreLesson />
+          </motion.div>
+        );
+      case 'linear-regression':
+        return (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none h-full">
+            <LinearRegressionLesson />
           </motion.div>
         );
       case 'sql-basics':
@@ -122,29 +159,17 @@ export const ModulePage: React.FC = () => {
             <SQLAdvancedLesson />
           </motion.div>
         );
-      case 'linear-regression':
-        return (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-8 max-w-none">
-            <LessonHeader 
-              module="Module 5: Statistics for Data Analysis" 
-              title="Linear Regression Simulator" 
-              description="Drag the points to see how outliers affect the regression line." 
-            />
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-              <ScatterPlotVisualizer initialPoints={[
-                { x: 10, y: 20 }, { x: 20, y: 35 }, { x: 30, y: 30 },
-                { x: 40, y: 50 }, { x: 50, y: 45 }, { x: 60, y: 70 },
-                { x: 70, y: 65 }, { x: 80, y: 85 }, { x: 90, y: 90 }
-              ]} />
-            </div>
-          </motion.div>
-        );
       default:
         return null;
     }
   };
 
-  const interactiveLessonIds = ['z-score', 'sql-basics', 'sql-joins', 'sql-advanced', 'linear-regression'];
+  const interactiveLessonIds = [
+    'sql-basics', 'sql-joins', 'sql-advanced',
+    'central-tendency', 'variance-std', 'probability-distributions', 
+    'correlation', 'hypothesis-testing', 'confidence-intervals', 
+    'z-score', 'linear-regression'
+  ];
   const regularLessonIds = [
     'what-is-da', 'types-of-data', 'da-lifecycle', 'da-applications', 
     'xlookup', 'index-match', 'nested-ifs', 'sumifs-iferror', 

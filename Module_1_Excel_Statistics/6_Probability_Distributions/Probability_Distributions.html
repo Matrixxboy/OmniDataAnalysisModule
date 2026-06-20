@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability Distributions - Professional Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --secondary: #059669;
+            --secondary-light: #ecfdf5;
+            --tertiary: #7c3aed;
+            --tertiary-light: #f5f3ff;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem;
+            gap: 3rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 260px;
+            position: sticky;
+            top: 2.5rem;
+            height: fit-content;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+
+        .sidebar li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+        }
+
+        .sidebar li a:hover { background: var(--bg-color); color: var(--text-main); }
+
+        /* Main Content */
+        .content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3rem; }
+
+        .page-header h1 { font-size: 2.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+        .page-header p { font-size: 1.125rem; color: var(--text-muted); }
+
+        /* Section Styling */
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            scroll-margin-top: 2.5rem;
+        }
+
+        section h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-main); padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+        section h3 { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0; color: var(--text-main); }
+        
+        .description { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+
+        ul.feature-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        ul.feature-list li { margin-bottom: 0.25rem; }
+
+        /* Charts */
+        .chart-container {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .chart-title { text-align: center; font-weight: 600; color: var(--text-muted); margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        svg { width: 100%; height: 280px; overflow: visible; font-family: 'Inter', sans-serif; }
+        
+        /* Grid Lines & Axes for SVG */
+        .axis { stroke: #cbd5e1; stroke-width: 1; }
+        .grid { stroke: #f1f5f9; stroke-width: 1; stroke-dasharray: 4 4; }
+        .axis-label { fill: #64748b; font-size: 12px; text-anchor: middle; }
+
+        /* Excel Box */
+        .excel-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 0.5rem 0.5rem 0;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .excel-box.binomial { background: var(--tertiary-light); border-left-color: var(--tertiary); }
+        .excel-box.poisson { background: var(--secondary-light); border-left-color: var(--secondary); }
+
+        .excel-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .formula-group { 
+            background: #ffffff; 
+            border: 1px solid rgba(0,0,0,0.05); 
+            border-radius: 0.375rem; 
+            padding: 1rem; 
+            margin-bottom: 1rem; 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02); 
+        }
+        .formula-group:last-child { margin-bottom: 0; }
+        
+        .formula-group strong { display: block; margin-bottom: 0.25rem; font-size: 0.95rem; color: var(--text-main); }
+        .formula-group p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+        
+        code {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        /* Examples */
+        .example { background: var(--bg-color); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem; margin-top: 1.5rem; }
+        .example h4 { font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--text-main); font-weight: 600;}
+        .example p { color: var(--text-muted); margin-bottom: 0.5rem;}
+        .example .calculation { margin-top: 1rem; font-weight: 500; color: var(--text-main); }
+
+        /* Summary Table */
+        table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: var(--bg-color); font-weight: 600; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;}
+        tr:hover td { background: var(--bg-color); }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tag.normal { background: var(--primary-light); color: var(--primary); }
+        .tag.binomial { background: var(--tertiary-light); color: var(--tertiary); }
+        .tag.poisson { background: var(--secondary-light); color: var(--secondary); }
+
+        @media (max-width: 900px) {
+            .container { flex-direction: column; }
+            .sidebar { position: static; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#normal">1. Normal Distribution</a></li>
+            <li><a href="#binomial">2. Binomial Distribution</a></li>
+            <li><a href="#poisson">3. Poisson Distribution</a></li>
+            <li><a href="#summary">4. Distribution Selection Matrix</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        <header class="page-header">
+            <h1>Probability Distributions</h1>
+            <p>A professional guide to statistical distributions, their visual behaviors, and practical implementations in Microsoft Excel.</p>
+        </header>
+
+        <!-- Normal Distribution -->
+        <section id="normal">
+            <h2 style="color: var(--primary);">1. Normal Distribution (Gaussian Curve)</h2>
+            <p class="description">
+                The normal distribution represents a symmetric, continuous probability distribution where most observations cluster around the central peak (the mean), and the probabilities for values further away taper off equally in both directions.
+            </p>
+
+            <h3>When to Use</h3>
+            <ul class="feature-list">
+                <li>When measuring <strong>continuous data</strong> (data that can take any value, including decimals).</li>
+                <li>When data clusters symmetrically around an average.</li>
+                <li><strong>Common Use Cases:</strong> Heights, weights, exam scores, stock market returns, and measurement errors.</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">Density Curve with Standard Deviations</div>
+                <svg viewBox="0 0 800 300">
+                    <!-- Grid -->
+                    <line x1="100" y1="50" x2="700" y2="50" class="grid"/>
+                    <line x1="100" y1="100" x2="700" y2="100" class="grid"/>
+                    <line x1="100" y1="150" x2="700" y2="150" class="grid"/>
+                    <line x1="100" y1="200" x2="700" y2="200" class="grid"/>
+                    <!-- Axes -->
+                    <line x1="100" y1="250" x2="700" y2="250" class="axis"/>
+                    
+                    <!-- Area Under Curve (Total) -->
+                    <path d="M 100 250 L 100 247.8 L 125 245.4 L 150 241.2 L 175 234.0 L 200 223.0 L 225 206.8 L 250 185.0 L 275 158.4 L 300 128.6 L 325 98.8 L 350 73.6 L 375 56.0 L 400 50.0 L 425 56.0 L 450 73.6 L 475 98.8 L 500 128.6 L 525 158.4 L 550 185.0 L 575 206.8 L 600 223.0 L 625 234.0 L 650 241.2 L 675 245.4 L 700 247.8 L 700 250 Z" fill="#eff6ff" />
+                    
+                    <!-- Area Under Curve (68% middle) -->
+                    <path d="M 300 250 L 300 128.6 L 325 98.8 L 350 73.6 L 375 56.0 L 400 50.0 L 425 56.0 L 450 73.6 L 475 98.8 L 500 128.6 L 500 250 Z" fill="#bfdbfe" />
+
+                    <!-- Curve Line -->
+                    <path d="M 100 247.8 L 125 245.4 L 150 241.2 L 175 234.0 L 200 223.0 L 225 206.8 L 250 185.0 L 275 158.4 L 300 128.6 L 325 98.8 L 350 73.6 L 375 56.0 L 400 50.0 L 425 56.0 L 450 73.6 L 475 98.8 L 500 128.6 L 525 158.4 L 550 185.0 L 575 206.8 L 600 223.0 L 625 234.0 L 650 241.2 L 675 245.4 L 700 247.8" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                    
+                    <!-- Standard Deviation Markers -->
+                    <line x1="400" y1="50" x2="400" y2="250" stroke="#3b82f6" stroke-dasharray="4 4"/>
+                    <line x1="300" y1="128.6" x2="300" y2="250" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                    <line x1="500" y1="128.6" x2="500" y2="250" stroke="#94a3b8" stroke-dasharray="4 4"/>
+                    
+                    <!-- Labels -->
+                    <text x="400" y="270" class="axis-label" font-weight="600">μ (Mean)</text>
+                    <text x="300" y="270" class="axis-label">μ - 1σ</text>
+                    <text x="500" y="270" class="axis-label">μ + 1σ</text>
+                    <text x="200" y="270" class="axis-label">μ - 2σ</text>
+                    <text x="600" y="270" class="axis-label">μ + 2σ</text>
+                    
+                    <!-- 68% Text -->
+                    <text x="400" y="200" text-anchor="middle" font-size="14" fill="#1e40af" font-weight="600">68.27% of Data</text>
+                </svg>
+            </div>
+
+            <div class="excel-box">
+                <h4>Excel Formulas & Implementation</h4>
+                
+                <div class="formula-group">
+                    <strong>Cumulative Probability (Most Commonly Used)</strong>
+                    <p>Use when you need the probability of a value being <em>less than or equal to</em> a specific threshold (e.g., finding the chance a student scores 85 or lower).</p>
+                    <code>=NORM.DIST(x, mean, std_dev, TRUE)</code>
+                </div>
+
+                <div class="formula-group">
+                    <strong>Probability Between Two Values</strong>
+                    <p>Use when finding the percentage of data falling between two boundaries. Subtract the lower cumulative distribution from the higher one.</p>
+                    <code>=NORM.DIST(high_value, mean, std, TRUE) - NORM.DIST(low_value, mean, std, TRUE)</code>
+                </div>
+
+                <div class="formula-group">
+                    <strong>Inverse Normal (Finding the Cut-off Value)</strong>
+                    <p>Use when you know the percentile (probability) and want to find the corresponding value (e.g., finding the exact score required to be in the top 10%).</p>
+                    <code>=NORM.INV(probability, mean, std_dev)</code>
+                </div>
+                
+                <div class="formula-group">
+                    <strong>Probability Density (Plotting the Curve)</strong>
+                    <p>Use the <code>FALSE</code> argument strictly when generating Y-values to draw the bell curve visually. It is rarely used for calculating actual probabilities in business.</p>
+                    <code>=NORM.DIST(x, mean, std_dev, FALSE)</code>
+                </div>
+            </div>
+
+            <div class="example">
+                <h4>Real-World Application: Exam Scores</h4>
+                <p>An exam has a historical average (mean) score of <strong>70</strong>, with a standard deviation of <strong>10</strong>.</p>
+                <p class="calculation">What is the probability a student scores above 85?</p>
+                <p>Because Excel calculates probability from left to right (less than), we must subtract the result from 1 to get the "greater than" probability:</p>
+                <code>=1 - NORM.DIST(85, 70, 10, TRUE)</code> ➔ <strong>6.68%</strong>
+            </div>
+        </section>
+
+        <!-- Binomial Distribution -->
+        <section id="binomial">
+            <h2 style="color: var(--tertiary);">2. Binomial Distribution</h2>
+            <p class="description">
+                The binomial distribution models the number of successes in a fixed number of independent trials, where each trial can result in just two possible outcomes (success or failure).
+            </p>
+
+            <h3>When to Use</h3>
+            <ul class="feature-list">
+                <li>When there is a <strong>fixed number of trials</strong> (n).</li>
+                <li>When each trial is binary (e.g., Pass/Fail, Yes/No, Defective/Functional).</li>
+                <li>When the probability of success (p) remains constant for every trial.</li>
+                <li><strong>Common Use Cases:</strong> Quality control checks, coin flips, customer conversion on a fixed list of leads.</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">Probability Mass Function (n=10, p=0.5)</div>
+                <svg viewBox="0 0 800 300">
+                    <!-- Axes -->
+                    <line x1="100" y1="250" x2="700" y2="250" class="axis"/>
+                    <line x1="100" y1="50" x2="100" y2="250" class="axis"/>
+                    
+                    <!-- Y-axis labels -->
+                    <text x="90" y="55" class="axis-label" text-anchor="end">25%</text>
+                    <text x="90" y="155" class="axis-label" text-anchor="end">12.5%</text>
+                    <text x="90" y="250" class="axis-label" text-anchor="end">0%</text>
+
+                    <!-- Grid -->
+                    <line x1="100" y1="50" x2="700" y2="50" class="grid"/>
+                    <line x1="100" y1="150" x2="700" y2="150" class="grid"/>
+
+                    <!-- Bars -->
+                    <rect x="130" y="249" width="30" height="1" fill="#e9d5ff" />
+                    <rect x="180" y="242" width="30" height="8" fill="#e9d5ff" />
+                    <rect x="230" y="215" width="30" height="35" fill="#d8b4fe" />
+                    <rect x="280" y="156" width="30" height="94" fill="#c084fc" />
+                    <rect x="330" y="86" width="30" height="164" fill="var(--tertiary)" />
+                    <rect x="380" y="53" width="30" height="197" fill="var(--tertiary)" />
+                    <rect x="430" y="86" width="30" height="164" fill="var(--tertiary)" />
+                    <rect x="480" y="156" width="30" height="94" fill="#c084fc" />
+                    <rect x="530" y="215" width="30" height="35" fill="#d8b4fe" />
+                    <rect x="580" y="242" width="30" height="8" fill="#e9d5ff" />
+                    <rect x="630" y="249" width="30" height="1" fill="#e9d5ff" />
+                    
+                    <!-- X-axis Labels -->
+                    <text x="145" y="270" class="axis-label">0</text>
+                    <text x="195" y="270" class="axis-label">1</text>
+                    <text x="245" y="270" class="axis-label">2</text>
+                    <text x="295" y="270" class="axis-label">3</text>
+                    <text x="345" y="270" class="axis-label">4</text>
+                    <text x="395" y="270" class="axis-label">5</text>
+                    <text x="445" y="270" class="axis-label">6</text>
+                    <text x="495" y="270" class="axis-label">7</text>
+                    <text x="545" y="270" class="axis-label">8</text>
+                    <text x="595" y="270" class="axis-label">9</text>
+                    <text x="645" y="270" class="axis-label">10</text>
+                    <text x="400" y="295" class="axis-label" font-weight="600">Number of Successes (k)</text>
+                </svg>
+            </div>
+
+            <div class="excel-box binomial">
+                <h4>Excel Formulas & Implementation</h4>
+                
+                <div class="formula-group">
+                    <strong>Exact Probability</strong>
+                    <p>Use when you need the probability of achieving <em>exactly</em> k successes (no more, no less).</p>
+                    <code>=BINOM.DIST(k, trials, probability_s, FALSE)</code>
+                </div>
+
+                <div class="formula-group">
+                    <strong>Cumulative Probability</strong>
+                    <p>Use when you need the probability of achieving <em>at most</em> k successes (k or fewer).</p>
+                    <code>=BINOM.DIST(k, trials, probability_s, TRUE)</code>
+                </div>
+            </div>
+
+            <div class="example">
+                <h4>Real-World Application: Manufacturing Defect Rate</h4>
+                <p>A manufacturing plant produces batches of products. The known historical defect rate is <strong>5% (0.05)</strong>. Quality assurance tests exactly <strong>20 items</strong> per batch.</p>
+                <p class="calculation">What is the probability that exactly 2 of the 20 items are defective?</p>
+                <p>We use FALSE because we are looking for exactly 2 defects, not 2 or fewer.</p>
+                <code>=BINOM.DIST(2, 20, 0.05, FALSE)</code> ➔ <strong>18.87%</strong>
+            </div>
+        </section>
+
+        <!-- Poisson Distribution -->
+        <section id="poisson">
+            <h2 style="color: var(--secondary);">3. Poisson Distribution</h2>
+            <p class="description">
+                The Poisson distribution expresses the probability of a given number of events occurring in a fixed interval of time or space, assuming these events occur with a known constant mean rate and independently of the time since the last event.
+            </p>
+
+            <h3>When to Use</h3>
+            <ul class="feature-list">
+                <li>When measuring the <strong>count of events</strong> occurring over a <strong>fixed interval</strong> (time, area, volume).</li>
+                <li>When events are completely independent of each other.</li>
+                <li><strong>Common Use Cases:</strong> Customer arrivals per hour at a store, network failures per day, number of emails received per minute.</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">Probability Mass Function (λ = 3)</div>
+                <svg viewBox="0 0 800 300">
+                    <!-- Axes -->
+                    <line x1="100" y1="250" x2="700" y2="250" class="axis"/>
+                    <line x1="100" y1="50" x2="100" y2="250" class="axis"/>
+                    
+                    <!-- Y-axis labels -->
+                    <text x="90" y="55" class="axis-label" text-anchor="end">25%</text>
+                    <text x="90" y="155" class="axis-label" text-anchor="end">12.5%</text>
+                    <text x="90" y="250" class="axis-label" text-anchor="end">0%</text>
+
+                    <!-- Grid -->
+                    <line x1="100" y1="50" x2="700" y2="50" class="grid"/>
+                    <line x1="100" y1="150" x2="700" y2="150" class="grid"/>
+
+                    <!-- Bars (lambda=3) -->
+                    <rect x="130" y="210" width="30" height="40" fill="#a7f3d0" />
+                    <rect x="180" y="130" width="30" height="120" fill="#6ee7b7" />
+                    <rect x="230" y="71" width="30" height="179" fill="var(--secondary)" />
+                    <rect x="280" y="71" width="30" height="179" fill="var(--secondary)" />
+                    <rect x="330" y="116" width="30" height="134" fill="#34d399" />
+                    <rect x="380" y="170" width="30" height="80" fill="#6ee7b7" />
+                    <rect x="430" y="210" width="30" height="40" fill="#a7f3d0" />
+                    <rect x="480" y="233" width="30" height="17" fill="#d1fae5" />
+                    <rect x="530" y="244" width="30" height="6" fill="#ecfdf5" />
+                    <rect x="580" y="248" width="30" height="2" fill="#ecfdf5" />
+                    
+                    <!-- Line connecting tops -->
+                    <path d="M145,210 L195,130 L245,71 L295,71 L345,116 L395,170 L445,210 L495,233 L545,244 L595,248" fill="none" stroke="#047857" stroke-width="2" stroke-dasharray="4 4" />
+
+                    <!-- X-axis Labels -->
+                    <text x="145" y="270" class="axis-label">0</text>
+                    <text x="195" y="270" class="axis-label">1</text>
+                    <text x="245" y="270" class="axis-label">2</text>
+                    <text x="295" y="270" class="axis-label">3</text>
+                    <text x="345" y="270" class="axis-label">4</text>
+                    <text x="395" y="270" class="axis-label">5</text>
+                    <text x="445" y="270" class="axis-label">6</text>
+                    <text x="495" y="270" class="axis-label">7</text>
+                    <text x="545" y="270" class="axis-label">8</text>
+                    <text x="595" y="270" class="axis-label">9</text>
+                    <text x="400" y="295" class="axis-label" font-weight="600">Number of Events in Interval (k)</text>
+                </svg>
+            </div>
+
+            <div class="excel-box poisson">
+                <h4>Excel Formulas & Implementation</h4>
+                
+                <div class="formula-group">
+                    <strong>Exact Probability</strong>
+                    <p>Use when determining the probability of observing <em>exactly</em> k events in the specified time frame.</p>
+                    <code>=POISSON.DIST(k, lambda, FALSE)</code>
+                </div>
+
+                <div class="formula-group">
+                    <strong>Cumulative Probability</strong>
+                    <p>Use when determining the probability of observing <em>k or fewer</em> events in the specified time frame.</p>
+                    <code>=POISSON.DIST(k, lambda, TRUE)</code>
+                </div>
+            </div>
+
+            <div class="example">
+                <h4>Real-World Application: Customer Support Calls</h4>
+                <p>A helpdesk typically receives an average of <strong>5 calls per hour</strong> (this is our lambda, λ).</p>
+                <p class="calculation">What is the probability of receiving exactly 3 calls in the next hour?</p>
+                <p>Because we want an exact number, we set the final argument to FALSE.</p>
+                <code>=POISSON.DIST(3, 5, FALSE)</code> ➔ <strong>14.04%</strong>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary">
+            <h2>4. Distribution Selection Matrix</h2>
+            <p class="description">Use this quick reference to determine which distribution matches your business problem.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Data Type / Scenario</th>
+                        <th style="width: 30%;">Correct Distribution</th>
+                        <th style="width: 30%;">Key Parameter(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Continuous Data</strong><br><span style="color:var(--text-muted); font-size:0.9rem;">Measurements, financial returns, human heights. Can include decimals.</span></td>
+                        <td><span class="tag normal">Normal</span></td>
+                        <td>Mean (μ) &amp; Std Dev (σ)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Discrete Success/Failure Counts</strong><br><span style="color:var(--text-muted); font-size:0.9rem;">Out of a predetermined, fixed number of independent trials.</span></td>
+                        <td><span class="tag binomial">Binomial</span></td>
+                        <td>Trials (n) &amp; Probability (p)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rates / Events over Time</strong><br><span style="color:var(--text-muted); font-size:0.9rem;">Counting occurrences in a fixed time, volume, or spatial area.</span></td>
+                        <td><span class="tag poisson">Poisson</span></td>
+                        <td>Average Rate (λ)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

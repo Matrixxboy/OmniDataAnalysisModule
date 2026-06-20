@@ -12,7 +12,7 @@ export const TopBar: React.FC<TopBarProps> = ({ activeLessonId, onGoToDashboard 
   const [isRunning, setIsRunning] = useState(true);
   
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isRunning) {
       interval = setInterval(() => {
         setSeconds(s => s + 1);

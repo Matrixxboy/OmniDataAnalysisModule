@@ -7,7 +7,8 @@ export const GlobalHeader: React.FC = () => {
   
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Courses', path: '/courses' },
+    { name: 'Modules', path: '/courses' },
+    { name: 'Datasets', path: '/datasets' },
     { name: 'About', path: '/about' },
   ];
 
@@ -69,6 +70,7 @@ export const GlobalFooter: React.FC = () => {
           <h4 className="text-white font-semibold mb-4 flex items-center gap-2"><BookOpen size={16}/> Platform</h4>
           <ul className="space-y-2 text-sm">
             <li><Link to="/courses" className="hover:text-purple-400 transition-colors">All Courses</Link></li>
+            <li><Link to="/datasets" className="hover:text-purple-400 transition-colors">Real-Life Datasets</Link></li>
             <li><Link to="/about" className="hover:text-purple-400 transition-colors">About the Instructor</Link></li>
           </ul>
         </div>

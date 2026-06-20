@@ -99,7 +99,10 @@ export const courseModules: Module[] = [
     lessons: [
       { id: 'central-tendency', title: 'Mean, Median, Mode', duration: '10 min', isCompleted: false },
       { id: 'variance-std', title: 'Variance & Standard Deviation', duration: '15 min', isCompleted: false },
+      { id: 'probability-distributions', title: 'Probability Distributions', duration: '15 min', isCompleted: false },
       { id: 'correlation', title: 'Correlation vs Causation', duration: '12 min', isCompleted: false },
+      { id: 'hypothesis-testing', title: 'Hypothesis Testing (T-Test)', duration: '20 min', isCompleted: false },
+      { id: 'confidence-intervals', title: 'Confidence Intervals', duration: '15 min', isCompleted: false },
       { id: 'z-score', title: 'Interactive Z-Scores', duration: '15 min', isCompleted: false },
       { id: 'linear-regression', title: 'Linear Regression Simulator', duration: '20 min', isCompleted: false },
     ]
