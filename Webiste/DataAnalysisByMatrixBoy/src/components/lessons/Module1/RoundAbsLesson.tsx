@@ -21,7 +21,7 @@ const lessonData: FormulaLessonData = {
     headers: ["Input"],
     rows: [["Value"]]
   },
-  evaluate: (dataset: TableData, userInput: TableData): EvaluationResult => {
+  evaluate: (dataset: TableData, _userInput: TableData): EvaluationResult => {
     return {
       formulaUsed: "=ROUND/ABS(...)",
       visualSteps: [

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Activity, Target, BrainCircuit, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
+import { Activity, Target, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
 
 export interface StatParameter {
   symbol: string | React.ReactNode;

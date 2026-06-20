@@ -1,7 +1,7 @@
 import React from 'react';
 import { WebsiteLayout } from '../components/layout/GlobalLayout';
 import { Link } from 'react-router-dom';
-import { Database, Download, ArrowRight, FileSpreadsheet, Building2, ShoppingCart, HeartPulse } from 'lucide-react';
+import { Database, ArrowRight, FileSpreadsheet, Building2, ShoppingCart, HeartPulse } from 'lucide-react';
 import { datasets } from '../data/datasets';
 
 export const Datasets: React.FC = () => {

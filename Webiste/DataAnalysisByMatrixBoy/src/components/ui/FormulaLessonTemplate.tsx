@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { FormulaLessonData, TableData, EvaluationResult } from '../../types/formula';
-import { AlertTriangle, Briefcase, TerminalSquare, CheckCircle2, ChevronRight, PlayCircle, RotateCcw, Star, Database, Edit3 } from 'lucide-react';
+import { AlertTriangle, Briefcase, CheckCircle2, ChevronRight, PlayCircle, RotateCcw, Database, Edit3 } from 'lucide-react';
 
 interface Props {
   data: FormulaLessonData;

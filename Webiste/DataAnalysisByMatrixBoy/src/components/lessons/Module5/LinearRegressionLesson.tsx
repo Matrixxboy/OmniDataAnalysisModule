@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { StatisticsLessonTemplate, CSSFormula } from '../../ui/StatisticsLessonTemplate';
+import { StatisticsLessonTemplate } from '../../ui/StatisticsLessonTemplate';
 
 export const LinearRegressionLesson: React.FC = () => {
   const [slope, setSlope] = useState<number>(0.5); // 0 to 2

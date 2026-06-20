@@ -24,7 +24,7 @@ const lessonData: FormulaLessonData = {
     headers: ["Rows", "Columns", "Start", "Step"],
     rows: [["4", "2", "10", "5"]] 
   },
-  evaluate: (dataset: TableData, userInput: TableData): EvaluationResult => {
+  evaluate: (_dataset: TableData, userInput: TableData): EvaluationResult => {
     const rows = parseInt(userInput.rows[0][0]) || 1;
     const cols = parseInt(userInput.rows[0][1]) || 1;
     const start = parseFloat(userInput.rows[0][2]) || 1;

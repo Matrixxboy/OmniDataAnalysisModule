@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart3, Code, MessageCircle, Users, BookOpen, User, Shield, FileText } from 'lucide-react';
+import { BarChart3, Code, MessageCircle, Users, BookOpen, Shield } from 'lucide-react';
 
 export const GlobalHeader: React.FC = () => {
   const location = useLocation();
@@ -84,7 +84,7 @@ export const GlobalFooter: React.FC = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-slate-800 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>© {new Date().getFullYear()} MatrixBoy Analytics. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} <Link to="https://twomportal.vercel.app/" className="hover:text-purple-400 transition-colors">The World Of Matrix</Link>. All rights reserved.</p>
       </div>
     </footer>
   );

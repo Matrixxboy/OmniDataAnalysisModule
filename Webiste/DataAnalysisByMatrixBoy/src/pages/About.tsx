@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { WebsiteLayout } from '../components/layout/GlobalLayout';
-import { Code, Users, MessageCircle, MapPin, Building, Globe, GitFork, Star, BookOpen, GraduationCap, Briefcase, Award } from 'lucide-react';
+import { Code, MapPin, Building, Globe, GraduationCap, Briefcase, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface GithubProfile {

@@ -56,17 +56,7 @@ import { ZScoreLesson } from '../components/lessons/Module5/ZScoreLesson';
 import { LinearRegressionLesson } from '../components/lessons/Module5/LinearRegressionLesson';
 
 // Interactive Components
-import { FormulaExplainer } from '../components/ui/LessonComponents';
-import { SQLSimulator } from '../components/engines/SQLSimulator';
-import { ScatterPlotVisualizer } from '../components/engines/ScatterPlotVisualizer';
 
-const LessonHeader = ({ module, title, description }: { module: string, title: string, description: string }) => (
-  <div className="mb-8 border-b border-slate-200 pb-8">
-    <div className="text-purple-600 font-semibold text-sm mb-2 uppercase tracking-wider">{module}</div>
-    <h1 className="text-4xl font-bold text-slate-900 mb-4">{title}</h1>
-    <p className="text-xl text-slate-600">{description}</p>
-  </div>
-);
 
 export const ModulePage: React.FC = () => {
   const { moduleId } = useParams<{ moduleId: string }>();

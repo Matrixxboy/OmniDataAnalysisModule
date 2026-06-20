@@ -24,7 +24,7 @@ const lessonData: FormulaLessonData = {
     headers: ["Operation"],
     rows: [["SORT & UNIQUE"]] 
   },
-  evaluate: (dataset: TableData, userInput: TableData): EvaluationResult => {
+  evaluate: (dataset: TableData, _userInput: TableData): EvaluationResult => {
     const formulaUsed = `=SORT(UNIQUE(A2:A7))`;
     
     const visualSteps: VisualStep[] = [];
