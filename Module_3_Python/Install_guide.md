@@ -156,9 +156,21 @@ pip install notebook
 
 Verify
 
+
 ```bash
 jupyter notebook
 ```
+
+```bash
+python -m notebook 
+```
+
+or 
+
+```bash
+py -m notebook 
+```
+
 
 The browser should open automatically.
 
