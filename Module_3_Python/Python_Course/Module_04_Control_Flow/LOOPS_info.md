@@ -59,3 +59,56 @@ Python after 5 pizzas:
 A `for` loop is basically Python saying:
 
 > **“Tell me what to repeat, and I’ll keep doing it until I’m finished.”** 🔄🐍
+
+
+
+
+
+## Practice
+### 🔢 Even & Odd Numbers — Python Style 
+
+Imagine Python is checking students at the school gate:
+
+> **Python:** “Roll number?”
+> Student: “7.”
+> **Python:** “ODD. Go inside.” 🚶
+> Student: “8.”
+> **Python:** “EVEN. VIP entry.” 😎
+
+```python
+for number in range(1, 11):
+    if number % 2 == 0:
+        print(number, "is EVEN 🟢")
+    else:
+        print(number, "is ODD 🔴")
+```
+
+### 🧠 What's happening?
+
+`range(1, 11)` → numbers **1 to 10**
+
+`%` → gives the **remainder**
+
+So:
+
+```python
+8 % 2 = 0   # EVEN
+7 % 2 = 1   # ODD
+```
+
+### Output
+
+```text
+1 is ODD 🔴
+2 is EVEN 🟢
+3 is ODD 🔴
+4 is EVEN 🟢
+5 is ODD 🔴
+...
+10 is EVEN 🟢
+```
+
+Basically:
+
+> **If the number can divide by 2 without leftover drama → EVEN 😎**
+> **If there’s a leftover → ODD 💀**
